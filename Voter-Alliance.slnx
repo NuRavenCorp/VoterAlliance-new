@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="voter-alliance.client/voter-alliance.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="Voter-Alliance.Server/Voter-Alliance.Server.csproj" />
+</Solution>
