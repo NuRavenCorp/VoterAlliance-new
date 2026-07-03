@@ -1,7 +1,6 @@
-# Env
+#env
 .env
 .env.*
-*.local
 
 # Logs
 /logs
@@ -12,37 +11,21 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Build outputs
-**/bin/
-**/obj/
-**/publish/
-**/publish_*/
+node_modules
 dist
 dist-ssr
-**/dist/
-
-# Node / Vite
-node_modules
-**/node_modules/
-.vite
-**/.vite/
-
-# Python
-**/__pycache__/
-*.pyc
+*.local
 
 # Editor directories and files
-.vs/
-.vscode/
 .vscode/*
 !.vscode/extensions.json
 .idea
+.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
-# OS
-.DS_Store
-Thumbs.db
+.env
+.vite
