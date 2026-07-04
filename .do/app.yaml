@@ -11,10 +11,3 @@ static_sites:
     routes:
       - path: /
 
-ingress:
-  rules:
-    - component:
-        name: web
-      match:
-        path:
-          prefix: /
