@@ -18,6 +18,10 @@ dist/
 dist-ssr/
 .vite/
 
+# Keep production static bundle for DigitalOcean static-site deploy
+!voter-alliance.client/dist/
+!voter-alliance.client/dist/**
+
 # Build outputs
 bin/
 obj/

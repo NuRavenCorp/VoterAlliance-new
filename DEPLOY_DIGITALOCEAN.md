@@ -2,7 +2,7 @@
 
 ## What was added
 - `.do/app.yaml`: DigitalOcean App Platform specification.
-- `Voter-Alliance.Server/Dockerfile`: production image for ASP.NET API + bundled SPA assets.
+- `Voter-Alliance.Server/Dockerfile`: backend container build recipe (kept for full-stack deployment when backend source is tracked).
 - `.dockerignore` update to allow `Voter-Alliance.Server/Dockerfile` in build context.
 
 ## Prerequisites
@@ -10,20 +10,10 @@
 - Repo connected to DigitalOcean App Platform.
 - Replace placeholder env values in `.do/app.yaml` before first production release.
 
-## Important production variables
-Set these in App Platform (or keep in `.do/app.yaml` if managed securely):
-- `JWT__Key` (required, strong random value)
-- `ConnectionStrings__DefaultConnection` (wired to `${db.DATABASE_URL}` by default)
-- `AllowedOrigins__0`, `AllowedOrigins__1` (your production domain)
-- OAuth credentials for providers you use:
-  - `Authentication__Google__ClientId`
-  - `Authentication__Google__ClientSecret`
-  - `Authentication__Facebook__ClientId`
-  - `Authentication__Facebook__ClientSecret`
-  - `Authentication__Microsoft__ClientId`
-  - `Authentication__Microsoft__ClientSecret`
-- `Stripe__SecretKey` (if billing is enabled)
-- `CacheConnection` (optional; use DO Managed Redis if needed)
+## Current mode in this repo
+Current `.do/app.yaml` deploys as a static site from `voter-alliance.client/dist` because this repository snapshot does not include tracked backend source files needed for Docker build in App Platform.
+
+If you want full-stack API + DB deployment later, re-enable the service section in `.do/app.yaml` and ensure backend project files are tracked in Git.
 
 ## Deploy from DigitalOcean UI
 1. Create a new App in DigitalOcean App Platform.
@@ -42,13 +32,11 @@ For updates:
 doctl apps update <APP_ID> --spec .do/app.yaml
 ```
 
-## OAuth callback URLs (required)
+## OAuth callback URLs (required when backend auth is enabled)
 For Google and other providers, add callback URLs matching your live domain:
 - `https://YOUR_APP_DOMAIN/signin-google`
 - `https://YOUR_APP_DOMAIN/signin-facebook`
 - `https://YOUR_APP_DOMAIN/signin-microsoft`
-
-If these are missing, social login fails with redirect URI mismatch.
 
 ## Post-deploy checks
 - Open `/` and verify the SPA loads.

@@ -1,41 +1,15 @@
 name: voter-alliance
 region: nyc
-services:
+static_sites:
   - name: web
     github:
       repo: NuRavenCorp/VoterAlliance-new
       branch: main
       deploy_on_push: true
-    source_dir: /
-    dockerfile_path: Voter-Alliance.Server/Dockerfile
-    http_port: 8080
-    instance_count: 1
-    instance_size_slug: professional-xs
-    health_check:
-      http_path: /
-      initial_delay_seconds: 20
-      period_seconds: 10
-      timeout_seconds: 5
-      success_threshold: 1
-      failure_threshold: 5
-    envs:
-      - key: ASPNETCORE_ENVIRONMENT
-        value: Production
-      - key: ConnectionStrings__DefaultConnection
-        scope: RUN_AND_BUILD_TIME
-        value: ${db.DATABASE_URL}
-      - key: JWT__Key
-        type: SECRET
-        scope: RUN_AND_BUILD_TIME
-        value: REPLACE_WITH_STRONG_JWT_SECRET
-      - key: JWT__Issuer
-        value: VoterAlliance
-      - key: JWT__Audience
-        value: VoterAllianceUsers
-      - key: AllowedOrigins__0
-        value: https://YOUR_APP_DOMAIN
-      - key: AllowedOrigins__1
-        value: https://www.YOUR_APP_DOMAIN
+    source_dir: /voter-alliance.client/dist
+    catchall_document: index.html
+    routes:
+      - path: /
 
 ingress:
   rules:
@@ -44,11 +18,3 @@ ingress:
       match:
         path:
           prefix: /
-
-# Managed PostgreSQL database
-# NOTE: replace db name/user/engine_version to your preferred values if needed.
-databases:
-  - name: db
-    engine: PG
-    version: "16"
-    production: false
